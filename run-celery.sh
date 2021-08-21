@@ -1,0 +1,1 @@
+celery -A CeleryTasks.celery worker -B --loglevel=INFO
