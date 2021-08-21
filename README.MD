@@ -1,7 +1,7 @@
 <h1>SEIS – TEST REST API</h1>
 
 Developed with Python 3.6.9 using WSL for Windows 10
-Native Windows not support as Celery does not have support for Windows since 4.0
+Native Windows not supported as Celery does not have support for Windows since 4.0
 
 Frameworks:
 * Flask
@@ -13,8 +13,23 @@ Frameworks:
 ```shell
 pip install -r requirements.txt
 ```
+Please also run schema.sql to create the tables in your Postgres database, default schema name is set to ```rest_api```
 
 **Configuring**
+Take note that in  ```app.ini``` few properties can be changed
+* app_secret : change this to your liking or generate in app (Line 27, User.py)
+* rest_api : change this to your schema name
+* Take note of other postgresql properties too
+```ini
+[app_config]
+app_secret=MYRESTAPI1234
+[postgresql]
+host=localhost
+database=postgres
+user=postgres 
+password=admin
+options=-c search_path=rest_api
+```
 
 
 A copy of redis-stable is included but you can delete it and redownload it by running run-redis.sh in a terminal window
@@ -78,6 +93,7 @@ Example:
 <h2>Notes: </h2>
 
 * Uploaded files are saved with ```<original_name>_<%Y%m%d_%H%M%S>.txt``` e.g ``` Test1_20210821_214216.txt```to allow for same file names without overwriting
+* Sensitivity score task is triggered every time a new file is uploaded, periodic update can be activated by uncommenting line 15-22 in CeleryTasks.py
 
 
-I do not have much exposure to Python and it's my first building a REST API from scratch, I believe the application has a lot of room for improve. Regardless this was an interesting experience
+I do not have much exposure to Python and it's my first building a REST API from scratch, I believe the application has a lot of room for improve. This was an interesting experience!
