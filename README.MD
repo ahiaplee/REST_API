@@ -94,6 +94,7 @@ Example:
 
 * Uploaded files are saved with ```<original_name>_<%Y%m%d_%H%M%S>.txt``` e.g ``` Test1_20210821_214216.txt```to allow for same file names without overwriting
 * Sensitivity score task is triggered every time a new file is uploaded, periodic update can be activated by uncommenting line 15-22 in CeleryTasks.py
+* Simple units tests can be conducted by running the app, opening another terminal window and running ```python UnitTest.py hostname:port``` e.g ```python UnitTest.py http://127.0.0.1:5000/```
 
 
 I do not have much exposure to Python and it's my first time building a REST API from scratch, I believe the application has a lot of room for improve. This was an interesting experience!
