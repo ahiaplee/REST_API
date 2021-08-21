@@ -3,11 +3,19 @@
 Developed with Python 3.6.9 using WSL for Windows 10
 Native Windows not support as Celery does not have support for Windows since 4.0
 
+Frameworks:
+* Flask
+* Celery
+* Postgres
+
 **Installation:**
 
 ```shell
 pip install -r requirements.txt
 ```
+
+**Configuring**
+
 
 A copy of redis-stable is included but you can delete it and redownload it by running run-redis.sh in a terminal window
 
@@ -67,4 +75,9 @@ Example:
 	 * new_password: new password of client
 
 
+<h2>Notes: </h2>
 
+* Uploaded files are saved with ```<original_name>_<%Y%m%d_%H%M%S>.txt``` e.g ``` Test1_20210821_214216.txt```to allow for same file names without overwriting
+
+
+I do not have much exposure to Python and it's my first building a REST API from scratch, I believe the application has a lot of room for improve. Regardless this was an interesting experience
