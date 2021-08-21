@@ -1,7 +1,7 @@
 <h1>SEIS – TEST REST API</h1>
 
-Developed with Python 3.6.9 using WSL for Windows 10
-Native Windows not supported as Celery does not have support for Windows since 4.0
+* Developed with Python 3.6.9 using WSL for Windows 10
+* Native Windows not supported as Celery does not have support for Windows since 4.0
 
 Frameworks:
 * Flask
