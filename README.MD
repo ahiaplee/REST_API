@@ -96,4 +96,4 @@ Example:
 * Sensitivity score task is triggered every time a new file is uploaded, periodic update can be activated by uncommenting line 15-22 in CeleryTasks.py
 
 
-I do not have much exposure to Python and it's my first building a REST API from scratch, I believe the application has a lot of room for improve. This was an interesting experience!
+I do not have much exposure to Python and it's my first time building a REST API from scratch, I believe the application has a lot of room for improve. This was an interesting experience!
