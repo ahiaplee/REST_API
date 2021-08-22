@@ -8,6 +8,12 @@ from ListFiles import ListFiles
 from ChangePassword import ChangePassword
 from CeleryTasks import *
 
+class LandingPage(Resource):
+    def get(self):
+        return "Landing Page"
+    def post(self):
+        return "Landing Page"
+
 def run():
     """
     main function of the REST API
@@ -22,7 +28,8 @@ def run():
     api.add_resource(FileUpload, "/FileUpload")
     api.add_resource(ListFiles, "/ListFiles")
     api.add_resource(ChangePassword, "/ChangePassword")
-    app.run(debug=True)
+    api.add_resource(LandingPage, "/")
+    app.run(debug=True, host="0.0.0.0")
 
 if __name__ == "__main__":
 	run()

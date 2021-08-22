@@ -13,17 +13,21 @@ class DatabaseConnection:
         __config : dictionary of configuration values 
 
     """
-    def __init__(self, filename='app.ini', section='postgresql'):
-        """ Inits the object and connects to the database given in the ini file
 
-        Args:
-            filename: name of the ini file
-            section : section of the file where configuration is stored
-        """
+    def __InitTables(self, sqlFile='schema.sql'):
+        file = open(sqlFile, "r").read()
+        conn = self.__conn
+        cur = conn.cursor()
+        try:
+            cur.execute(file)
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+            conn.rollback()
 
-        #set default values and read config file
-        self.connected = False
-        self.__config = self.__readConfig(filename, section)
+    def __connectDB(self, filename='app.ini', section='postgresql'):
+                #set default values and read config file
+        
 
         # attempt to connect if config reading is successful
         if self.__config is not None:
@@ -34,12 +38,24 @@ class DatabaseConnection:
                 if self.__conn is not None:
                     print("DB connect successful, testing connection")
                     self.TestConnection()
-                    connected = True
+                    self.__InitTables()
+                    self.connected = True
                 else:
                     print("Connection failed with no exception thrown")
 
             except (Exception, psycopg2.DatabaseError) as error:
                 print(error)
+
+    def __init__(self, filename='app.ini', section='postgresql'):
+        """ Inits the object and connects to the database given in the ini file
+
+        Args:
+            filename: name of the ini file
+            section : section of the file where configuration is stored
+        """
+        self.connected = False
+        self.__config = self.__readConfig(filename, section)
+        self.__connectDB()
 
     def __del__(self):
         """ closes db connection on destruction
@@ -53,6 +69,11 @@ class DatabaseConnection:
         Returns:
             self.__conn: db connection object
         """
+        if self.connected is False:
+            self.__connectDB()
+        elif self.__conn is None:
+            self.__connectDB()
+
         return self.__conn
 
     def TestConnection(self):

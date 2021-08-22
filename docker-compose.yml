@@ -1,0 +1,45 @@
+services:
+  api:
+    build: .
+    command: python3 main.py
+    depends_on:
+      - db
+    networks:
+      - default
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/usr/src/app
+    restart: always
+    links:
+      - redis
+
+  db:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    restart: always
+
+  redis:
+    image: redis:6.2.5
+    restart: always
+
+  celery:
+    build: .
+    image: celery:latest
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - redis
+      - api
+    command: celery -A CeleryTasks.celery worker -B --loglevel=INFO
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    stop_grace_period: "${DOCKER_STOP_GRACE_PERIOD:-3s}"
+    links:
+      - redis
+    environment:
+      - C_FORCE_ROOT=true

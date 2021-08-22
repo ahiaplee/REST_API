@@ -34,14 +34,14 @@ class ListFiles(Resource):
                     filetime = infos[2][:-4]
 
                     file_datetime = datetime.datetime.strptime(filedate + filetime, "%Y%m%d%H%M%S")
-                    print("asd")
+                    #print("asd")
                     #add information to
                     files.append({
                         "filename": filename,
                         "upload_date": file_datetime.strftime("%d/%m/%Y %H:%M:%S"),
                         "filesize" : record[2],
                         "sensitivity_score" : record[4],
-                        "last_updated" : record[5].strftime("%d/%m/%Y %H:%M:%S")
+                        "last_updated" : file_datetime.strftime("%d/%m/%Y %H:%M:%S") if record[5] is None else record[5].strftime("%d/%m/%Y %H:%M:%S")
                     })
 
                 return Message(True, "Files Retrieved", files)

@@ -40,8 +40,8 @@ def CheckArgs(toCheck, args):
 app = Flask(__name__)
 app.name = "MY_REST_API"
 print(app.name)
-app.config['CELERY_BROKER_URL'] = 'redis://127.0.0.1:6379/0'
-app.config['result_backend'] = 'redis://127.0.0.1:6379/0'
+app.config['CELERY_BROKER_URL'] = 'redis://redis:6379/0'
+app.config['result_backend'] = 'redis://redis:6379/0'
 api = Api(app)
 dbObject = DatabaseConnection()
 UPLOAD_DIR = "Files"

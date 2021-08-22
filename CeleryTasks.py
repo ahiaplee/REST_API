@@ -25,15 +25,18 @@ SENSITIVE_WORDS = {
 def Update_Scores():
     """ Retrieves all the files in the DB and updates their sensitivity_score
     """
+    print("asdijasidjasodiajsdoijasoidjaosidjaiosjdaoisjdoaisjdoiasjdoiajdoiajsdiojs")
     #grab data from db
     conn = dbObject.GetConnection()
     cur = conn.cursor()
+
     try:
         cur.execute('SELECT * FROM files')
         res = cur.fetchall()
 
         if res is not None:
             for record in res:
+                #print(record)
                 if os.path.isfile(record[3]):
                     score = Build_Word_Count(record[3])
                     try:
@@ -44,7 +47,7 @@ def Update_Scores():
                         if res is not None:
                                 conn.commit()
                         else:
-                            raise Exception("Updating of password hash failed")
+                            raise Exception("Updating of sensitivity score failed")
                     except (Exception, psycopg2.DatabaseError) as error:
                         conn.rollback()
             
@@ -64,6 +67,8 @@ def Build_Word_Count(filepath):
     """
     all_words = {}
     file = open(filepath, "r")
+
+    print("Building Word count for ", filepath)
 
     for line in file:
         line = line.strip()
