@@ -40,6 +40,7 @@ POSTGRES_DB: postgres
 ```shell
 docker-compose up -d
 ```
+* App should now run in http://localhost:5000/
 
 <h2>API</h2>
 
