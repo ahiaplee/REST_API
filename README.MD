@@ -1,7 +1,8 @@
+
 <h1>SEIS – TEST REST API</h1>
 
-* Developed with Python 3.6.9 using WSL for Windows 10
-* Native Windows not supported as Celery does not have support for Windows since 4.0
+* Docker is required
+* WSL is required if running on Windows
 
 Frameworks:
 * Flask
@@ -9,37 +10,36 @@ Frameworks:
 * Postgres
 
 **Installation:**
-
+* Go to the root directory of project and run
 ```shell
-pip3 install -r requirements.txt
+docker-compose build
 ```
-Please also run schema.sql to create the tables in your Postgres database, default schema name is set to ```rest_api```
+or
+```shell
+docker-compose -f docker-compose.yml build
+```
 
 **Configuring**
 Take note that in  ```app.ini``` few properties can be changed
 * app_secret : change this to your liking or generate in app (Line 27, User.py)
-* rest_api : change this to your schema name
-* Take note of other postgresql properties too
+* Please **do not modify** the postgresql section of the ini file, if you do please remember to change the corresponding variables in the docker-compose.yml 
 ```ini
 [app_config]
 app_secret=MYRESTAPI1234
-[postgresql]
-host=localhost
-database=postgres
-user=postgres 
-password=admin
-options=-c search_path=rest_api
+```
+Update the follow under "db" of docker-compose.yml if you decide to change the postres section
+```yml
+POSTGRES_USER: postgres
+POSTGRES_PASSWORD: postgres
+POSTGRES_DB: postgres
 ```
 
-
-A copy of redis-stable is included but you can delete it and redownload it by running run-redis.sh in a terminal window
-
 **To  run:**
-
- - **3** Terminal windows are required
- - Start redis with run-redis.sh
- - Start API server with run-server.sh
- - Start Celery worker with run-celery.sh
+* Make sure you built the docker image in the installation step
+* Go to the root directory of project and run
+```shell
+docker-compose up -d
+```
 
 <h2>API</h2>
 
@@ -96,5 +96,3 @@ Example:
 * Sensitivity score task is triggered every time a new file is uploaded, periodic update can be activated by uncommenting line 15-22 in CeleryTasks.py
 * Simple units tests can be conducted by running the app, opening another terminal window and running ```python3 UnitTest.py hostname:port``` e.g ```python3 UnitTest.py http://127.0.0.1:5000/```
 
-
-I do not have much exposure to Python and it's my first time building a REST API from scratch, I believe the application has a lot of room for improve. This was an interesting experience!
