@@ -78,6 +78,10 @@ class FileUpload(Resource):
             print('Saving %s' % save_filename)
 
             #save file and get data for db insertion
+
+            if os.path.isdir(UPLOAD_DIR) is False:
+                os.mkdir(UPLOAD_DIR)
+
             save_path = os.path.join(UPLOAD_DIR, save_filename)
             upload_file.save(save_path)
             filesize = os.stat(save_path).st_size
