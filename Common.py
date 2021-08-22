@@ -12,6 +12,7 @@ import datetime
 import jwt
 import psycopg2
 import base64
+import os
 
 from Message import Message
 from User import User
@@ -44,7 +45,7 @@ app.config['CELERY_BROKER_URL'] = 'redis://redis:6379/0'
 app.config['result_backend'] = 'redis://redis:6379/0'
 api = Api(app)
 dbObject = DatabaseConnection()
-UPLOAD_DIR = "Files"
+UPLOAD_DIR = os.getcwd() + "/Files"
 
 
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
