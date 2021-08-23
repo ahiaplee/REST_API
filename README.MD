@@ -1,5 +1,5 @@
 
-<h1>SEIS – TEST REST API</h1>
+<h1>TEST REST API</h1>
 
 * Docker is required
 * WSL is required if running on Windows
