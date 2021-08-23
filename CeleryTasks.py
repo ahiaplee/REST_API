@@ -5,7 +5,6 @@ import os
 
 SENSITIVE_WORDS = {
     "secret" : 10,
-    "dathena" : 7,
     "internal" : 5,
     "external" : 3,
     "public" : 1,
